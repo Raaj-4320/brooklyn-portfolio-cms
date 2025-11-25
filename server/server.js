@@ -18,25 +18,23 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-// Use Environment Variable for MongoDB, fallback to local
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/brooklyn_portfolio';
 const JWT_SECRET = process.env.JWT_SECRET || 'secret_key_123';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
-CLOUD_NAME=dvu9b0y9m
-CLOUD_API_KEY=927423134832233
-CLOUD_API_SECRET=m1jojC8UQoy0d1u5X-UfJgms-MQ
-
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME || "dvu9b0y9m",
-  api_key: process.env.CLOUD_API_KEY || "927423134832233",
-  api_secret: process.env.CLOUD_API_SECRET || "m1jojC8UQoy0d1u5X-UfJgms-MQ",
-});
-
+// --- Cloudinary Setup ---
+// FIX: Ensure these are read from process.env, not hardcoded without quotes
+if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  });
+} else {
+  console.warn("⚠️ Cloudinary credentials missing. File uploads may fail.");
+}
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -50,7 +48,7 @@ const upload = multer({ storage: storage });
 
 // --- Middleware ---
 app.use(cors({
-  origin: true, // Allow all origins (Netlify, Localhost, etc.)
+  origin: true, 
   credentials: true
 }));
 
