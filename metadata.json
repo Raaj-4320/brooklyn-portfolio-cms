@@ -1,0 +1,11 @@
+{
+  "name": "Dhruvin Portfolio",
+  "description": "A dynamic, editable portfolio landing page featuring AI-powered content rewriting using Gemini. Includes Hero, About, Services, Blog, and Client sections.",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "cloudinary": "^1.41.0",
+    "multer-storage-cloudinary": "^4.0.0"
+  },
+  "requestFramePermissions": []
+}
