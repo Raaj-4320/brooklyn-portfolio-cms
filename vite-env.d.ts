@@ -1,3 +1,4 @@
-// This file is intentionally left empty to avoid type conflicts with global process declaration
-// and missing vite/client types.
-export {};
+/// <reference types="vite/client" />
+
+// This file ensures that Vite's import.meta.env types are available globally
+// preventing TS errors during build.
